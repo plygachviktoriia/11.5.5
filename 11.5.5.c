@@ -15,6 +15,8 @@ TWN *cur;                 //kurzorovy uzol
 CTWL *ctwl_create_random(unsigned int size); 
 void ctwl_destroy(CTWL* list);
 void ctwl_print(CTWL *list);
+TWN *ctwl_insert_right(CTWL* list, float val);
+CTWL *ctwl_create_empty(void);
 
 unsigned int ctwl_get_size(CTWL *list)
 {
@@ -35,6 +37,7 @@ while (n != list->cur)
 return pocet;
 }
 
+
 CTWL *ctwl_create_random(unsigned int size)
 {
  srand(time(NULL));
@@ -48,6 +51,18 @@ CTWL *ctwl_create_random(unsigned int size)
  }
  return list;
 }
+
+
+CTWL *ctwl_create_empty(void)
+{
+ CTWL *list = malloc(sizeof(CTWL));
+ if (list != NULL) 
+ {
+  list->cur = NULL;
+ }
+return list;
+}
+
 
 int main(void) 
 {
