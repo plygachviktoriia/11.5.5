@@ -21,16 +21,16 @@ CTWL *ctwl_create_empty(void);
 
 unsigned int ctwl_get_size(CTWL *list)
 {
-if (list == NULL || list->cur == NULL)
+ if (list == NULL || list->cur == NULL)
  {
   return 0;
  } 
 
-unsigned int pocet = 1;
-TWN *zaciatok = list->cur;
-TWN *n = zaciatok->next;
+ unsigned int pocet = 1;
+ TWN *zaciatok = list->cur;
+ TWN *n = zaciatok->next;
 
-while (n != zaciatok)
+ while (n != zaciatok)
  {
   pocet++;
   n = n->next;
@@ -107,6 +107,17 @@ int main(void)
  ctwl_destroy(list);
      
     return 0;
+}
+
+
+void ctwl_print(CTWL *list)
+{
+ if (list == NULL || list->cur == NULL)
+ {
+  printf("List je prazdny\n");
+  return;
+ }
+
 }
 
 
