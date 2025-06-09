@@ -77,6 +77,13 @@ TWN *ctwl_insert_right(CTWL* list, float val)
 
  vuzol->data = val;
 
+ if (zaciatok == NULL)
+ {
+  vuzol->next = vuzol;
+  vuzol->prev = vuzol;
+  zaciatok = vuzol;
+ }
+
 return vuzol; 
 }
 
