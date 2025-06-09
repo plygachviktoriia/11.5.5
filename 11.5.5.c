@@ -18,5 +18,11 @@ if (list == NULL || list->cur == 0)
   return 0;
  } 
 
+unsigned int pocet = 1;
 
+while (list->cur->next)
+ {
+  pocet++;
+ }
+return pocet;
 }
