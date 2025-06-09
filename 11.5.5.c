@@ -35,6 +35,20 @@ while (n != list->cur)
 return pocet;
 }
 
+CTWL *ctwl_create_random(unsigned int size)
+{
+ srand(time(NULL));
+ CTWL *list = ctwl_create_empty();
+ for (unsigned int i = 0; i < size; i++)
+ {
+   int cely = rand() % 101 - 50;
+   int drob = rand() % 100;
+   float cisla = cely + drob / 100.0f;
+   ctwl_insert_right(list, cisla);
+ }
+ return list;
+}
+
 int main(void) 
 {
  CTWL *list = ctwl_create_random(15);
