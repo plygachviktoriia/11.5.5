@@ -118,6 +118,16 @@ void ctwl_print(CTWL *list)
   return;
  }
 
+ TWN *start = zaciatok;
+ TWN *uzol  = start;
+
+ do 
+ {
+ printf("%.2f ", uzol->data);
+ uzol = uzol->next;
+ }
+ while (uzol != start);
+ printf("\n");
 }
 
 
