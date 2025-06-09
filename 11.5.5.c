@@ -18,6 +18,7 @@ void ctwl_print(CTWL *list);
 TWN *ctwl_insert_right(CTWL* list, float val);
 CTWL *ctwl_create_empty(void);
 
+
 unsigned int ctwl_get_size(CTWL *list)
 {
 if (list == NULL || list->cur == NULL)
@@ -26,9 +27,10 @@ if (list == NULL || list->cur == NULL)
  } 
 
 unsigned int pocet = 1;
-TWN *n = list->cur->next;
+TWN *zaciatok = list->cur;
+TWN *n = zaciatok->next;
 
-while (n != list->cur)
+while (n != zaciatok)
  {
   pocet++;
   n = n->next;
@@ -64,6 +66,21 @@ return list;
 }
 
 
+TWN *ctwl_insert_right(CTWL* list, float val)
+{
+ TWN *zaciatok = list->cur;
+ TWN *vuzol = (TWN *)malloc(sizeof(TWN));
+ if (vuzol == NULL)
+ {
+  return NULL;
+ }
+
+ vuzol->data = val;
+
+return vuzol; 
+}
+
+
 int main(void) 
 {
  CTWL *list = ctwl_create_random(15);
@@ -75,4 +92,14 @@ int main(void)
  ctwl_destroy(list);
      
     return 0;
+}
+
+
+void ctwl_destroy(CTWL* list)
+{
+if (list == NULL || list->cur == NULL)
+ {
+  return;
+ } 
+ 
 }
