@@ -13,16 +13,19 @@ TWN *cur;                 //kurzorovy uzol
 
 unsigned int ctwl_get_size(CTWL *list)
 {
-if (list == NULL || list->cur == 0)
+if (list == NULL || list->cur == NULL)
  {
   return 0;
  } 
 
 unsigned int pocet = 1;
+TWN *n = list->cur->next;
 
-while (list->cur->next)
+while (list->cur = list->cur->next)
  {
   pocet++;
+  n = n->next;
  }
+
 return pocet;
 }
