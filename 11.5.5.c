@@ -21,7 +21,7 @@ if (list == NULL || list->cur == NULL)
 unsigned int pocet = 1;
 TWN *n = list->cur->next;
 
-while (list->cur = list->cur->next)
+while (n != list->cur->next)
  {
   pocet++;
   n = n->next;
