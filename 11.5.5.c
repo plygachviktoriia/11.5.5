@@ -27,10 +27,9 @@ unsigned int ctwl_get_size(CTWL *list)
  } 
 
  unsigned int pocet = 1;
- TWN *zaciatok = list->cur;
- TWN *n = zaciatok->next;
+ TWN *n = list->cur->next;
 
- while (n != zaciatok)
+ while (n != list->cur)
  {
   pocet++;
   n = n->next;
@@ -68,7 +67,6 @@ return list;
 
 TWN *ctwl_insert_right(CTWL* list, float val)
 {
- TWN *zaciatok = list->cur;
  TWN *vuzol = (TWN *)malloc(sizeof(TWN));
  if (vuzol == NULL)
  {
@@ -77,18 +75,18 @@ TWN *ctwl_insert_right(CTWL* list, float val)
 
  vuzol->data = val;
 
- if (zaciatok == NULL)
+ if (list->cur == NULL)
  {
   vuzol->next = vuzol;
   vuzol->prev = vuzol;
-  zaciatok = vuzol;
+  list->cur = vuzol;
  }
  else 
  {
-  TWN *right = zaciatok->next;
+  TWN *right = list->cur->next;
   vuzol->next = right;
-  vuzol->prev = zaciatok;
-  zaciatok->next = vuzol;
+  vuzol->prev = list->cur;
+  list->cur->next = vuzol;
   right->prev = vuzol;
  }
 
@@ -98,7 +96,9 @@ return vuzol;
 
 int main(void) 
 {
- CTWL *list = ctwl_create_random(15);
+ srand(time(NULL));
+ int velkost = rand() % 31;
+ CTWL *list = ctwl_create_random(velkost);
  unsigned int size = ctwl_get_size(list);
  
  printf("Pocet uzlov: %u\n", size);
@@ -106,7 +106,7 @@ int main(void)
  ctwl_print(list);
  ctwl_destroy(list);
      
-    return 0;
+ return 0;
 }
 
 
@@ -118,8 +118,7 @@ void ctwl_print(CTWL *list)
   return;
  }
 
- TWN *zaciatok = list->cur;
- TWN *start = zaciatok;
+ TWN *start = list->cur;
  TWN *uzol  = start;
 
  do 
