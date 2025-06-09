@@ -118,6 +118,7 @@ void ctwl_print(CTWL *list)
   return;
  }
 
+ TWN *zaciatok = list->cur;
  TWN *start = zaciatok;
  TWN *uzol  = start;
 
@@ -138,4 +139,16 @@ if (list == NULL || list->cur == NULL)
   return;
  } 
  
+ TWN *start = list->cur;
+ TWN *uzol = start->next;
+
+ while (uzol != start) 
+ {
+  TWN *temp = uzol;
+  uzol = uzol->next;
+  free(temp);
+ }
+
+ free(start);
+ free(list);
 }
