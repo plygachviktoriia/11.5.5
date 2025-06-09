@@ -10,3 +10,13 @@ struct TWN *next;
 typedef struct{           //reprezentacia celeho zoznamu
 TWN *cur;                 //kurzorovy uzol
 }CTWL;
+
+unsigned int ctwl_get_size(CTWL *list)
+{
+if (list == NULL || list->cur == 0)
+ {
+  return 0;
+ } 
+
+
+}
