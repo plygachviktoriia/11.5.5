@@ -13,10 +13,57 @@ TWN *cur;                 //kurzorovy uzol
 }CTWL;
 
 CTWL *ctwl_create_random(unsigned int size); 
-void ctwl_destroy(CTWL* list);
+void ctwl_destroy(CTWL *list);
 void ctwl_print(CTWL *list);
-TWN *ctwl_insert_right(CTWL* list, float val);
+TWN *ctwl_insert_right(CTWL *list, float val);
 CTWL *ctwl_create_empty(void);
+
+
+CTWL *ctwl_create_empty(void)
+{
+ CTWL *list = malloc(sizeof(CTWL));
+ if (list != NULL) 
+ {
+  list->cur = NULL;
+ }
+return list;
+}
+
+
+CTWL *ctwl_create_random(unsigned int size)
+{
+ srand(time(NULL));
+ CTWL *list = ctwl_create_empty();
+ for (unsigned int i = 0; i < size; i++)
+ {
+   int cely = rand() % 101 - 50;
+   int drob = rand() % 100;
+   float cisla = cely + drob / 100.0f;
+   ctwl_insert_right(list, cisla);
+ }
+ return list;
+}
+
+
+void ctwl_print(CTWL *list)
+{
+ if (list == NULL || list->cur == NULL)
+ {
+  printf("List je prazdny\n");
+  return;
+ }
+
+ TWN *start = list->cur;
+ TWN *uzol  = start;
+
+ do 
+ {
+ printf("%.2f ", uzol->data);
+ uzol = uzol->next;
+ }
+ while (uzol != start);
+ printf("\n");
+}
 
 
 unsigned int ctwl_get_size(CTWL *list)
@@ -36,32 +83,6 @@ unsigned int ctwl_get_size(CTWL *list)
  }
 
 return pocet;
-}
-
-
-CTWL *ctwl_create_random(unsigned int size)
-{
- srand(time(NULL));
- CTWL *list = ctwl_create_empty();
- for (unsigned int i = 0; i < size; i++)
- {
-   int cely = rand() % 101 - 50;
-   int drob = rand() % 100;
-   float cisla = cely + drob / 100.0f;
-   ctwl_insert_right(list, cisla);
- }
- return list;
-}
-
-
-CTWL *ctwl_create_empty(void)
-{
- CTWL *list = malloc(sizeof(CTWL));
- if (list != NULL) 
- {
-  list->cur = NULL;
- }
-return list;
 }
 
 
@@ -107,27 +128,6 @@ int main(void)
  ctwl_destroy(list);
      
  return 0;
-}
-
-
-void ctwl_print(CTWL *list)
-{
- if (list == NULL || list->cur == NULL)
- {
-  printf("List je prazdny\n");
-  return;
- }
-
- TWN *start = list->cur;
- TWN *uzol  = start;
-
- do 
- {
- printf("%.2f ", uzol->data);
- uzol = uzol->next;
- }
- while (uzol != start);
- printf("\n");
 }
 
 
