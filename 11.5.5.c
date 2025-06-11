@@ -118,13 +118,14 @@ return vuzol;
 int main(void) 
 {
  srand(time(NULL));
- int velkost = rand() % 31;
+ int velkost = rand() % 15;
  CTWL *list = ctwl_create_random(velkost);
- unsigned int size = ctwl_get_size(list);
  
+ ctwl_print(list);
+
+ unsigned int size = ctwl_get_size(list);
  printf("Pocet uzlov: %u\n", size);
 
- ctwl_print(list);
  ctwl_destroy(list);
      
  return 0;
