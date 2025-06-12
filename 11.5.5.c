@@ -3,13 +3,13 @@
 #include<time.h>
 
 typedef struct TWN{        //definicia obojsmernoho uzlu
-float data;
-struct TWN *prev;
-struct TWN *next;
+	float data;            //hodnota ktoru chrani uzol
+	struct TWN *prev;
+	struct TWN *next;
 }TWN;
 
 typedef struct{           //reprezentacia celeho zoznamu
-TWN *cur;                 //kurzorovy uzol
+	TWN *cur;                 //kurzorovy uzol
 }CTWL;
 
 CTWL *ctwl_create_random(unsigned int size); 
@@ -19,136 +19,138 @@ TWN *ctwl_insert_right(CTWL *list, float val);
 CTWL *ctwl_create_empty(void);
 
 
-CTWL *ctwl_create_empty(void)
+CTWL *ctwl_create_empty(void)                //inicializacis prazneho zoznamu
 {
- CTWL *list = malloc(sizeof(CTWL));
- if (list != NULL) 
- {
-  list->cur = NULL;
- }
-return list;
+	CTWL *list = malloc(sizeof(CTWL));
+
+	if (list != NULL) 
+	{
+	list->cur = NULL;
+	}
+
+	return list;
 }
 
 
 CTWL *ctwl_create_random(unsigned int size)
 {
- srand(time(NULL));
- CTWL *list = ctwl_create_empty();
- for (unsigned int i = 0; i < size; i++)
- {
-   int cely = rand() % 101 - 50;
-   int drob = rand() % 100;
-   float cisla = cely + drob / 100.0f;
-   ctwl_insert_right(list, cisla);
- }
- return list;
+	CTWL *list = ctwl_create_empty();
+
+	for (unsigned int i = 0; i < size; i++)
+	{
+   	int cely = rand() % 101 - 50;
+   	int drob = rand() % 100;
+   	float cisla = cely + drob / 100.0f;
+   	ctwl_insert_right(list, cisla);                 //vstavka uzla sprava v zoznam s hodnotou cisla
+ 	}
+
+ 	return list;
 }
 
 
 void ctwl_print(CTWL *list)
 {
- if (list == NULL || list->cur == NULL)
- {
-  printf("List je prazdny\n");
-  return;
- }
+ 	if (list == NULL || list->cur == NULL)
+ 	{
+  	printf("List je prazdny\n");
+  	return;
+ 	}
 
- TWN *start = list->cur;
- TWN *uzol  = start;
+ 	TWN *zaciatok = list->cur;
+ 	TWN *uzol  = zaciatok;
 
- do 
- {
- printf("%.2f ", uzol->data);
- uzol = uzol->next;
- }
- while (uzol != start);
- printf("\n");
+ 	do 
+ 	{
+ 	printf("%.2f ", uzol->data);                      //zvernenia na pole data na ktory ukazuje uzol
+ 	uzol = uzol->next;         
+ 	}
+ 	while (uzol != zaciatok);
+ 	printf("\n");
 }
 
 
 unsigned int ctwl_get_size(CTWL *list)
 {
- if (list == NULL || list->cur == NULL)
- {
-  return 0;
- } 
+	if (list == NULL || list->cur == NULL)
+ 	{
+  	return 0;
+ 	} 
 
- unsigned int pocet = 1;
- TWN *n = list->cur->next;
+ 	unsigned int pocet = 1;
+ 	TWN *n = list->cur->next;
 
- while (n != list->cur)
- {
-  pocet++;
-  n = n->next;
- }
+ 	while (n != list->cur)
+ 	{
+  	pocet++;
+  	n = n->next;
+ 	}
 
-return pocet;
+	return pocet;
 }
 
 
 TWN *ctwl_insert_right(CTWL* list, float val)
 {
- TWN *vuzol = (TWN *)malloc(sizeof(TWN));
- if (vuzol == NULL)
- {
-  return NULL;
- }
+ 	TWN *vuzol = malloc(sizeof(TWN));
 
- vuzol->data = val;
+ 	if (vuzol == NULL)
+ 	{
+  	return NULL;
+ 	}
 
- if (list->cur == NULL)
- {
-  vuzol->next = vuzol;
-  vuzol->prev = vuzol;
-  list->cur = vuzol;
- }
- else 
- {
-  TWN *right = list->cur->next;
-  vuzol->next = right;
-  vuzol->prev = list->cur;
-  list->cur->next = vuzol;
-  right->prev = vuzol;
- }
+ 	vuzol->data = val;
 
-return vuzol; 
+ 	if (list->cur == NULL)
+ 	{
+  	vuzol->next = vuzol->prev = vuzol;
+  	list->cur = vuzol;
+ 	}
+ 	else 
+ 	{
+  	TWN *right = list->cur->next;
+  	vuzol->next = right;
+  	vuzol->prev = list->cur;
+  	list->cur->next = vuzol;
+  	right->prev = vuzol;
+ 	}
+
+	return vuzol; 
 }
 
 
 int main(void) 
 {
- srand(time(NULL));
- int velkost = rand() % 15;
- CTWL *list = ctwl_create_random(velkost);
- 
- ctwl_print(list);
+ 	srand(time(NULL));
+ 	int velkost = rand() % 15;
+ 	CTWL *list = ctwl_create_random(velkost);
+ 	ctwl_print(list);
 
- unsigned int size = ctwl_get_size(list);
- printf("Pocet uzlov: %u\n", size);
+ 	unsigned int size = ctwl_get_size(list);
+ 	printf("Pocet uzlov: %u\n", size);
 
- ctwl_destroy(list);
+ 	ctwl_destroy(list);
      
- return 0;
+ 	return 0;
 }
 
 
 void ctwl_destroy(CTWL* list)
 {
-if (list == NULL || list->cur == NULL)
- {
-  return;
- } 
+	if (list == NULL || list->cur == NULL)
+ 	{
+  	return;
+ 	} 
  
- TWN *start = list->cur;
- TWN *uzol = start->next;
+ 	TWN *zaciatok = list->cur;
+ 	TWN *uzol = zaciatok->next;
 
- while (uzol != start) 
- {
-  TWN *temp = uzol;
-  uzol = uzol->next;
-  free(temp);
- }
+ 	while (uzol != zaciatok) 
+ 	{
+  	TWN *temp = uzol;
+  	uzol = uzol->next;
+  	free(temp);
+ 	}
 
- free(start);
- free(list);
+ 	free(zaciatok);
+ 	free(list);
 }
